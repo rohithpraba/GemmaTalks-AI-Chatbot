@@ -18,6 +18,22 @@ It uses Ollama to serve the **Gemma 3** large language model and Gradio to provi
 
 ---
 
+## 📸 Demo
+<img width="1920" height="1078" alt="sample" src="https://github.com/user-attachments/assets/a941af70-eaea-4195-a909-13c4b2de0bea" />
+<img width="1920" height="1078" alt="sample1" src="https://github.com/user-attachments/assets/7e5f63ec-f7a4-4a0c-8045-884ab0898ba1" />
+  
+*Example conversation powered by Gemma 3*
+
+---
+
+## 🛠️ Tech Stack
+
+- 🐍 Python
+- 🌐 Gradio (for frontend UI)
+- ⚡ Ollama (for local model inference)
+- 🧠 Gemma 3 LLM (Google's open-source model)
+- 🔗 REST API (streaming chat)
+
 ## 🧪 How to Run Locally
 
 ### 1. Clone the repository
@@ -46,19 +62,14 @@ The app will open in your browser. You can chat with the model in real-time!
 ```
 
 ### 🧭 Future Improvements
- File upload + local document search (RAG)
-
- Chat history storage
-
- Custom prompt templates
-
- Switch between different models (Gemma, LLaMA, Mistral, etc.)
+- File upload + local document search (RAG)
+- Chat history storage
+- Custom prompt templates
+- Switch between different models (Gemma, LLaMA, Mistral, etc.)
 
  ### 🙌 Acknowledgements
- Ollama – for simplifying local LLM inference
-
-Gradio – for making UI development super fast
-
-Gemma 3 – open-source LLM by Google
+- Ollama – for simplifying local LLM inference
+- Gradio – for making UI development super fast
+- Gemma 3 – open-source LLM by Google
 
 
