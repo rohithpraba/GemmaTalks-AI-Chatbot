@@ -1,75 +1,63 @@
-# GemmaTalks 💬🧠
-A fully offline, real-time AI chatbot built using **Gradio**, **Ollama**, and the **Gemma 3** language model.
+# GemmaTalks
 
-## 🚀 Project Overview
+> **Status:** Local prototype. Public sharing is optional and requires network access.
 
-**GemmaTalks** is a lightweight, privacy-focused chatbot that runs entirely on your local machine.  
-It uses Ollama to serve the **Gemma 3** large language model and Gradio to provide a clean web-based chat interface with **streamed responses**, mimicking modern AI chatbots – without ever sending your data to the cloud.
+GemmaTalks sends chat messages to a Gemma model served by Ollama and streams the response through a Gradio interface. Model inference runs on the local Ollama service and does not require a hosted LLM API.
 
----
+Local mode binds to `127.0.0.1` and does not create a public Gradio link. Setting `GRADIO_SHARE=true` exposes the locally running interface through Gradio's public-share mechanism and therefore requires an internet connection.
 
-## 🧠 Features
+## Requirements
 
-✅ Runs 100% locally – no internet or API keys needed  
-✅ Real-time streaming responses for smoother interaction  
-✅ Clean UI built with Gradio's `ChatInterface`  
-✅ PWA-enabled – install it like an app  
-✅ Easy to extend with other models or RAG pipelines
+- Python 3.10 or later
+- Ollama installed and running
+- A compatible Gemma model available in Ollama
 
----
+## Run locally
 
-## 📸 Demo
-<img width="1920" height="1078" alt="sample" src="https://github.com/user-attachments/assets/a941af70-eaea-4195-a909-13c4b2de0bea" />
-<img width="1920" height="1078" alt="sample1" src="https://github.com/user-attachments/assets/7e5f63ec-f7a4-4a0c-8045-884ab0898ba1" />
-  
-*Example conversation powered by Gemma 3*
-
----
-
-## 🛠️ Tech Stack
-
-- 🐍 Python
-- 🌐 Gradio (for frontend UI)
-- ⚡ Ollama (for local model inference)
-- 🧠 Gemma 3 LLM (Google's open-source model)
-- 🔗 REST API (streaming chat)
-
-## 🧪 How to Run Locally
-
-### 1. Clone the repository
 ```bash
-git clone https://github.com/rohithpraba/GemmaTalks-AI-Chatbot.git
-cd GemmaTalks-AI-Chatbot
+python -m venv .venv
+# Windows: .venv\Scripts\activate
+# macOS/Linux: source .venv/bin/activate
+python -m pip install -r requirements.txt
+ollama pull gemma3
+python app.py
 ```
 
-### 2. Install dependencies
+Open `http://127.0.0.1:7860`.
+
+## Configuration
+
+Copy `.env.example` values into your shell or local environment manager.
+
+| Variable | Default | Purpose |
+|---|---|---|
+| `OLLAMA_BASE_URL` | `http://127.0.0.1:11434` | Ollama service URL |
+| `OLLAMA_MODEL` | `gemma3` | Ollama model name |
+| `CONNECT_TIMEOUT_SECONDS` | `5` | Connection timeout |
+| `READ_TIMEOUT_SECONDS` | `180` | Streaming read timeout |
+| `GRADIO_HOST` | `127.0.0.1` | Local bind address |
+| `GRADIO_PORT` | `7860` | Local port |
+| `GRADIO_SHARE` | `false` | Explicitly enable optional public sharing |
+
+## Test
+
 ```bash
-pip install gradio requests
+python -m pip install -r requirements.txt -r requirements-dev.txt
+python -m pytest -q
 ```
 
-### 3. Start Ollama and pull the Gemma model
-Make sure Ollama is installed and running:
-```bash
-ollama run gemma:3b
-```
-The app will open in your browser. You can chat with the model in real-time!
+Tests mock Ollama; they do not download a model or create a public share URL.
 
-### 📂 Project Structure
-```bash
-.
-├── app1.py              
-├── README.md
-```
+## Privacy and network boundary
 
-### 🧭 Future Improvements
-- File upload + local document search (RAG)
-- Chat history storage
-- Custom prompt templates
-- Switch between different models (Gemma, LLaMA, Mistral, etc.)
+- Local inference avoids a hosted model API.
+- Prompts and responses travel between the browser, Gradio process, and local Ollama service.
+- Enabling public sharing routes browser access through a public network endpoint.
+- This is a prototype and is not an authenticated multi-user service.
 
- ### 🙌 Acknowledgements
-- Ollama – for simplifying local LLM inference
-- Gradio – for making UI development super fast
-- Gemma 3 – open-source LLM by Google
+## Limitations
 
-
+- No durable chat history
+- No authentication or authorization
+- No retrieval-augmented generation in this repository
+- Model quality and hardware requirements depend on the selected Ollama model
